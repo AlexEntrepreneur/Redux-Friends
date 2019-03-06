@@ -1,8 +1,14 @@
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { getFriends } from '../../actions/action-creators.js';
 import FriendCard from '../FriendCard/FriendCard';
 import './FriendsList.css';
 
 class FriendsList extends Component {
+  componentDidMount() {
+    this.props.getFriends();
+  }
   render () {
     return (
       <section className="friends-list">
@@ -27,4 +33,16 @@ class FriendsList extends Component {
   }
 }
 
-export default FriendsList;
+const mapStateToProps = (reducers) => {
+  return {
+    friends: reducers.friendsReducer
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({
+    getFriends
+  }, dispatch);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(FriendsList);

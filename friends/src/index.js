@@ -3,9 +3,12 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { combineReducers, createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
+import {
+  friendsReducer
+} from './reducers/reducers';
 import App from './App';
 
-const rootReducer = combineReducers({ });
+const rootReducer = combineReducers({ friendsReducer });
 
 const store = createStore(
   rootReducer,
