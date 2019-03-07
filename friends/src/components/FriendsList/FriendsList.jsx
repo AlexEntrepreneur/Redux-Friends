@@ -37,7 +37,8 @@ const mapStateToProps = (reducers) => {
   return {
     friends: reducers.friendsReducer.friends,
     fetchingFriends: reducers.friendsReducer.fetchingFriends,
-    friendsFetched: reducers.friendsReducer.friendsFetched
+    friendsFetched: reducers.friendsReducer.friendsFetched,
+    error: reducers.friendsReducer.error
   }
 }
 
