@@ -3,6 +3,8 @@ import * as types from '../actions/action-constants.js';
 const initialState = {
   fetchingFriends: false,
   friendsFetched: false,
+  addingFriend: false,
+  friendAdded: false,
   updatingFriend: false,
   friendUpdated: false,
   deletingFriend: false,
@@ -30,6 +32,26 @@ export const friendsReducer = (state = initialState, action) => {
         ...state,
         fetchingFriends: false,
         friendsFetched: false,
+        error: action.payload
+      };
+    case types.ADDING_FRIEND:
+      return {
+        ...state,
+        friendsFetched: false,
+        addingFriend: true
+      };
+    case types.ADDING_FRIEND_SUCCESS:
+      return {
+        ...state,
+        addingFriend: false,
+        friendAdded: true,
+        friends: action.payload
+      };
+    case types.ADDING_FRIEND_FAILURE:
+      return {
+        ...state,
+        addingFriend: false,
+        friendAdded: false,
         error: action.payload
       };
     default:

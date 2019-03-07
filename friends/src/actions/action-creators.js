@@ -14,6 +14,15 @@ const request = (url, method, successCallback, failCallback, payload) => {
         failCallback(err);
       })
     break;
+  case 'POST':
+    axios.post(url, payload)
+      .then(res => {
+        successCallback(res.data);
+      })
+      .catch(err => {
+        failCallback(err);
+      })
+    break;
   default:
     console.error(`Request to ${url} failed. Please check your config.`);
   }
@@ -26,6 +35,17 @@ export const getFriends = () => (dispatch) => {
     'GET',
     (data) => dispatch(onFetchFriendsSuccess(data)),
     (err) => dispatch(onFetchFriendsFailure(err.message))
+  );
+};
+
+export const addFriend = (name, age, email) => (dispatch) => {
+  dispatch(addingFriend());
+  request(
+    `${APIUrl}/friends`,
+    'POST',
+    (data) => dispatch(onAddFriendSuccess(data)),
+    (err) => dispatch(onAddFriendFailure(err.message)),
+    { name, age, email }
   );
 };
 
@@ -46,5 +66,26 @@ const onFetchFriendsFailure = (error) => {
 const fetchingFriends = () => {
   return {
     type: action.FETCHING_FRIENDS
+  };
+};
+
+const addingFriend = () => {
+  return {
+    type: action.ADDING_FRIEND
+  };
+};
+
+const onAddFriendSuccess = (friends) => {
+  return {
+    type: action.ADDING_FRIEND_SUCCESS,
+    payload: friends
+  };
+};
+
+
+const onAddFriendFailure = (error) => {
+  return {
+    type: action.ADDING_FRIEND_FAILURE,
+    payload: error
   };
 };
