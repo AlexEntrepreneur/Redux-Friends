@@ -35,7 +35,9 @@ class FriendsList extends Component {
 
 const mapStateToProps = (reducers) => {
   return {
-    friends: reducers.friendsReducer
+    friends: reducers.friendsReducer.friends,
+    fetchingFriends: reducers.friendsReducer.fetchingFriends,
+    friendsFetched: reducers.friendsReducer.friendsFetched
   }
 }
 
