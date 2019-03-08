@@ -1,6 +1,22 @@
 import * as types from '../actions/action-constants.js';
 
-const initialState = {
+const initialLoginState = {
+  error: null
+};
+
+export const loginReducer = (state = initialLoginState, action) => {
+  switch (action.type) {
+  case types.LOGIN_FAILURE:
+    return {
+      token: null,
+      error: action.payload
+    };
+  default:
+    return state;
+  }
+};
+
+const initialFriendsState = {
   fetchingFriends: false,
   friendsFetched: false,
   addingFriend: false,
@@ -13,7 +29,7 @@ const initialState = {
   error: null
 }
 
-export const friendsReducer = (state = initialState, action) => {
+export const friendsReducer = (state = initialFriendsState, action) => {
   switch (action.type) {
     case types.FETCHING_FRIENDS:
       return {

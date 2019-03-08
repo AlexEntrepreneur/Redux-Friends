@@ -28,6 +28,16 @@ const request = (url, method, successCallback, failCallback, payload) => {
   }
 };
 
+export const login = (username, password) => (dispatch) => {
+  request(
+    `${APIUrl}/login`,
+    'POST',
+    (data) => dispatch(onLoginSuccess(data.payload)),
+    (err) => dispatch(onLoginFailure(err.message)),
+    { username, password }
+  )
+};
+
 export const getFriends = () => (dispatch) => {
   dispatch(fetchingFriends());
   request(
@@ -47,6 +57,20 @@ export const addFriend = (name, age, email) => (dispatch) => {
     (err) => dispatch(onAddFriendFailure(err.message)),
     { name, age, email }
   );
+};
+
+const onLoginSuccess = (token) => {
+  return {
+    type: action.LOGIN_SUCCESS,
+    payload: token
+  };
+};
+
+const onLoginFailure = (error) => {
+  return {
+    type: action.LOGIN_FAILURE,
+    payload: error
+  };
 };
 
 const onFetchFriendsSuccess = (friends) => {
