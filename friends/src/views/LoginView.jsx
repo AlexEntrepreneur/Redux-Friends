@@ -4,18 +4,24 @@ import { connect } from 'react-redux';
 import { login } from '../actions/action-creators.js';
 
 class LoginView extends Component {
+  componentDidMount() {
+    // Simulates logging out when you navigate to login view
+    localStorage.removeItem('userToken');
+  }
+
   onLoginFormSubmit = (event) => {
     event.persist();
     event.preventDefault();
     const username = event.target['username'].value;
     const password = event.target['password'].value;
-    this.props.login(username, password);
+    this.props.login(username, password)
+    .then(() => this.props.history.push('/friends'));
   }
 
   render () {
     return (
       <>
-      <form onSubmit={this.onLoginFormSubmit}>
+      <form className="login-form" onSubmit={this.onLoginFormSubmit}>
         <input
           type="text"
           name="username"

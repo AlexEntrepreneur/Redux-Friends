@@ -27,11 +27,11 @@ class FriendCard extends Component {
         <p>{this.props.email}</p>
         <button
           className="edit-btn"
-          onClick={this.onEditBtnClick}
+          onClick={() => console.log('haven\'t finished this yet')}
         >EDIT</button>
         <button
           className="delete-btn"
-          onClick={() => this.onDeleteBtnClick(this.props.id)}
+          onClick={() => console.log('haven\'t finished this yet')}
         >DELETE</button>
       </div>
     );

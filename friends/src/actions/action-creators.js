@@ -29,13 +29,18 @@ const request = (url, method, successCallback, failCallback, payload) => {
 };
 
 export const login = (username, password) => (dispatch) => {
-  request(
-    `${APIUrl}/login`,
-    'POST',
-    (data) => dispatch(onLoginSuccess(data.payload)),
-    (err) => dispatch(onLoginFailure(err.message)),
-    { username, password }
-  )
+  return new Promise((resolve, reject) => {
+    request(
+      `${APIUrl}/login`,
+      'POST',
+      (data) => {
+        dispatch(onLoginSuccess(data.payload))
+        resolve('login successful');
+      },
+      (err) => dispatch(onLoginFailure(err.message)),
+      { username, password }
+    )
+  });
 };
 
 export const getFriends = () => (dispatch) => {
